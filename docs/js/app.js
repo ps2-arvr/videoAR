@@ -77,6 +77,8 @@ var controls = new THREEx.ArMarkerControls(context, marker1, {    // ƒ}[ƒJ‚ğ“o˜
 // ƒ‚ƒfƒ‹iƒƒbƒVƒ…j
 var geo = new THREE.CubeGeometry(1, 0.1, 1);            // cube ƒWƒIƒƒgƒŠiƒTƒCƒY‚Í 1x1x1j
 
+var video;
+
 var select = document.getElementById( 'video_src' );
 select.addEventListener( 'change', function (e) {
  video.src = select.value;
@@ -94,7 +96,7 @@ video.setAttribute( 'playsinline', 'playsinline' );
 video.setAttribute( 'muted', 'muted' );
 video.play();
 
-texture = new THREE.Texture( video );
+var texture = new THREE.Texture( video );
 texture.generateMipmaps = false;
 texture.minFilter = THREE.NearestFilter;
 texture.maxFilter = THREE.NearestFilter;
