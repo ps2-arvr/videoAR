@@ -76,10 +76,7 @@ var controls = new THREEx.ArMarkerControls(context, marker1, {    // ƒ}[ƒJ‚ğ“o˜
 
 scene.add(marker1);
 
-// ƒ‚ƒfƒ‹iƒƒbƒVƒ…j
-var geo = new THREE.PlaneGeometry(1, 1, 0.4, 0.4);            // plane ƒWƒIƒƒgƒŠiƒTƒCƒY‚Í 1x1x1j
-
-//ƒeƒNƒXƒ`ƒƒ
+//video—v‘f
 var video = document.createElement( 'video' );
 video.loop = true;
 video.muted = true;
@@ -95,14 +92,20 @@ var videoImageContext = videoImage.getContext('2d');
 videoImageContext.fillStyle = '#000000';
 videoImageContext.fillRect(0, 0, videoImage.width, videoImage.height);
 
-var videoTexture = new THREE.Texture( videoImage );
+//¶¬‚µ‚½canvas‚ğtexture‚Æ‚µ‚ÄTHREE.TextureƒIƒuƒWƒFƒNƒg‚ğ¶¬
+var videoTexture = new THREE.Texture(videoImage);
 videoTexture.minFilter = THREE.LinearFilter;
 videoTexture.magFilter = THREE.LinearFilter;
 
-var mesh1 = new THREE.Mesh(geo, new THREE.MeshBasicMaterial( { map: videoTexture } ));                 // ƒƒbƒVƒ…‚ğ¶¬
-mesh1.name = "plane";                                  // ƒƒbƒVƒ…‚Ì–¼‘OiŒã‚ÅƒsƒbƒLƒ“ƒO‚Åg‚¤j
-mesh1.position.set(0, 0.5, 0);                        // ‰ŠúˆÊ’u
-marker1.add(mesh1);                                   // ƒƒbƒVƒ…‚ğƒ}[ƒJ‚É’Ç‰Á
+//¶¬‚µ‚½video texture‚ğmap‚Éw’è‚µAoverdraw‚ğture‚É‚µ‚Äƒ}ƒeƒŠƒAƒ‹‚ğ¶¬
+var movieMaterial = new THREE.MeshBasicMaterial({map: videoTexture, overdraw: true, side:THREE.DoubleSide});
+var movieGeometry = new THREE.PlaneGeometry(10, 10, 4, 4);
+var movieScreen = new THREE.Mesh(movieGeometry, movieMaterial);
+movieScreen.rotation.y = THREE.Math.degToRad(90);
+
+movieScreen.name = "plane";                                  // ƒƒbƒVƒ…‚Ì–¼‘OiŒã‚ÅƒsƒbƒLƒ“ƒO‚Åg‚¤j
+movieScreen.position.set(0, 0.5, 0);                        // ‰ŠúˆÊ’u
+marker1.add(movieScreen);                                   // ƒƒbƒVƒ…‚ğƒ}[ƒJ‚É’Ç‰Á
 
 //===================================================================
 // Tween ƒAƒjƒ[ƒVƒ‡ƒ“
@@ -118,8 +121,8 @@ function tween1() {                                   // us‚«v‚ÌƒAƒjƒ[ƒVƒ‡ƒ
   .to(twFor1, 2000)                                   // ƒ^[ƒQƒbƒg‚Æ“’BŠÔ
   .easing(TWEEN.Easing.Back.Out)                      // ƒC[ƒWƒ“ƒO
   .onUpdate(function() {                              // ƒtƒŒ[ƒ€XV‚Ìˆ—
-    mesh1.position.z = twVal1.posZ;                   // ˆÊ’u‚ğ•ÏX
-    mesh1.rotation.x = twVal1.rotX;                   // ‰ñ“]‚ğ•ÏX
+    movieScreen.position.z = twVal1.posZ;                   // ˆÊ’u‚ğ•ÏX
+    movieScreen.rotation.x = twVal1.rotX;                   // ‰ñ“]‚ğ•ÏX
   })
   .onComplete(function() {                            // ƒAƒjƒ[ƒVƒ‡ƒ“Š®—¹‚Ìˆ—
     tween1_back();                                    // u‹A‚èv‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğÀs
@@ -132,8 +135,8 @@ function tween1_back() {                              // u‹A‚èv‚ÌƒAƒjƒ[ƒVƒ‡ƒ
   .to(twIni1, 2000)                                   // ƒ^[ƒQƒbƒg‚ğ‰Šúƒpƒ‰ƒ[ƒ^‚Éİ’è
   .easing(TWEEN.Easing.Back.InOut)
   .onUpdate(function() {
-    mesh1.position.z = twVal1.posZ;
-    mesh1.rotation.x = twVal1.rotX;
+    movieScreen.position.z = twVal1.posZ;
+    movieScreen.rotation.x = twVal1.rotX;
   })
   .onComplete(function() {
     // ‚È‚É‚à‚µ‚È‚¢
