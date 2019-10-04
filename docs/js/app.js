@@ -99,7 +99,7 @@ videoTexture.magFilter = THREE.LinearFilter;
 
 //生成したvideo textureをmapに指定し、overdrawをtureにしてマテリアルを生成
 var movieMaterial = new THREE.MeshBasicMaterial({map: videoTexture, overdraw: true, side:THREE.DoubleSide});
-var movieGeometry = new THREE.BoxGeometry(1,0.01,1);
+var movieGeometry = new THREE.PlaneGeometry(10,10);
 var movieScreen = new THREE.Mesh(movieGeometry, movieMaterial);
 
 movieScreen.name = "plane";                                  // メッシュの名前（後でピッキングで使う）
