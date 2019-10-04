@@ -79,11 +79,11 @@ var geo = new THREE.CubeGeometry(1, 0.1, 1);            // cube ジオメトリ（サイ
 
 var video;
 
-var select = document.getElementById( 'video_src' );
-select.addEventListener( 'change', function (e) {
- video.src = select.value;
- video.play();
-} );
+//var select = document.getElementById( 'video_src' );
+//select.addEventListener( 'change', function (e) {
+// video.src = select.value;
+// video.play();
+//} );
 
 //テクスチャ
 video = document.createElement( 'video' );
