@@ -75,42 +75,32 @@ var controls = new THREEx.ArMarkerControls(context, marker1, {    // ƒ}[ƒJ‚ğ“o˜
 });
 
 // ƒ‚ƒfƒ‹iƒƒbƒVƒ…j
-var geo = new THREE.CubeGeometry(1, 0.1, 1);            // cube ƒWƒIƒƒgƒŠiƒTƒCƒY‚Í 1x1x1j
-
-var video;
-
-//var select = document.getElementById( 'video_src' );
-//select.addEventListener( 'change', function (e) {
-// video.src = select.value;
-// video.play();
-//} );
+var geo = new THREE.PlaneGeometry(1, 1, 0.4, 0.4);            // plane ƒWƒIƒƒgƒŠiƒTƒCƒY‚Í 1x1x1j
 
 //ƒeƒNƒXƒ`ƒƒ
-video = document.createElement( 'video' );
-video.crossOrigin = 'anonymous';
+var video = document.createElement( 'video' );
 video.loop = true;
 video.muted = true;
 video.src = './video/PexelsVideos.mp4';
-video.setAttribute( 'webkit-playsinline', 'webkit-playsinline' );
-video.setAttribute( 'playsinline', 'playsinline' );
 video.setAttribute( 'muted', 'muted' );
 video.play();
 
-var texture = new THREE.Texture( video );
-texture.generateMipmaps = false;
-texture.minFilter = THREE.NearestFilter;
-texture.maxFilter = THREE.NearestFilter;
-texture.format = THREE.RGBFormat;
+var videoImage = document.createElement('canvas');
+videoImage.width = 480;
+videoImage.height = 200;
 
-// “®‰æ‚É‡‚í‚¹‚ÄƒeƒNƒXƒ`ƒƒ‚ğXV
-setInterval( function () {
- if ( video.readyState >= video.HAVE_CURRENT_DATA ) {
-     texture.needsUpdate = true;
- }
-}, 1000 / 24 );
+var videoImageContext = videoImage.getContext('2d');
+videoImageContext.fillStyle = '#000000';
+videoImageContext.fillRect(0, 0, videoImage.width, videoImage.height);
 
-var mesh1 = new THREE.Mesh(geo, new THREE.MeshBasicMaterial( { map: texture } ));                 // ƒƒbƒVƒ…‚ğ¶¬
-mesh1.name = "cube";                                  // ƒƒbƒVƒ…‚Ì–¼‘OiŒã‚ÅƒsƒbƒLƒ“ƒO‚Åg‚¤j
+var videoTexture = new THREE.Texture( videoImage );
+videoTexture.generateMipmaps = false;
+videoTexture.minFilter = THREE.NearestFilter;
+videoTexture.maxFilter = THREE.NearestFilter;
+videoTexture.format = THREE.RGBFormat;
+
+var mesh1 = new THREE.Mesh(geo, new THREE.MeshBasicMaterial( { map: videoTexture } ));                 // ƒƒbƒVƒ…‚ğ¶¬
+mesh1.name = "plane";                                  // ƒƒbƒVƒ…‚Ì–¼‘OiŒã‚ÅƒsƒbƒLƒ“ƒO‚Åg‚¤j
 mesh1.position.set(0, 0.5, 0);                        // ‰ŠúˆÊ’u
 marker1.add(mesh1);                                   // ƒƒbƒVƒ…‚ğƒ}[ƒJ‚É’Ç‰Á
 
@@ -185,6 +175,12 @@ function touch(objName) {
 //===================================================================
 function renderScene() {                              // ƒŒƒ“ƒ_ƒŠƒ“ƒOŠÖ”
   requestAnimationFrame(renderScene);                 // ƒ‹[ƒv‚ğ—v‹
+  if (video.readyState === video.HAVE_ENOUGH_DATA) {
+    videoImageContext.drawImage(video, 0, 0);
+    if (videoTexture) {
+        videoTexture.needsUpdate = true;
+    }
+  }
   if(source.ready === false)    { return; }             // ƒƒfƒBƒAƒ\[ƒX‚Ì€”õ‚ª‚Å‚«‚Ä‚¢‚È‚¯‚ê‚Î”²‚¯‚é
   context.update(source.domElement);                  // ARToolkit‚ÌƒRƒ“ƒeƒLƒXƒg‚ğXV
   TWEEN.update();                                     // TweenƒAƒjƒ[ƒVƒ‡ƒ“‚ğXV
