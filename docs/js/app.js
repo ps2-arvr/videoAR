@@ -101,8 +101,7 @@ videoTexture.magFilter = THREE.LinearFilter;
 var movieMaterial = new THREE.MeshBasicMaterial({map: videoTexture, overdraw: true, side:THREE.DoubleSide});
 var movieGeometry = new THREE.PlaneGeometry(10, 10, 4, 4);
 var movieScreen = new THREE.Mesh(movieGeometry, movieMaterial);
-movieScreen.rotation.y = THREE.Math.degToRad(90);
-movieScreen.rotation.x = THREE.Math.degToRad(90);
+
 
 movieScreen.name = "plane";                                  // メッシュの名前（後でピッキングで使う）
 movieScreen.position.set(0, 0.5, 0);                        // 初期位置
