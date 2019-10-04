@@ -74,6 +74,8 @@ var controls = new THREEx.ArMarkerControls(context, marker1, {    // ƒ}[ƒJ‚ğ“o˜
   patternUrl: "./data/pattern-exeo.patt",             // ƒ}[ƒJƒtƒ@ƒCƒ‹
 });
 
+scene.add(marker1);
+
 // ƒ‚ƒfƒ‹iƒƒbƒVƒ…j
 var geo = new THREE.PlaneGeometry(1, 1, 0.4, 0.4);            // plane ƒWƒIƒƒgƒŠiƒTƒCƒY‚Í 1x1x1j
 
@@ -94,10 +96,8 @@ videoImageContext.fillStyle = '#000000';
 videoImageContext.fillRect(0, 0, videoImage.width, videoImage.height);
 
 var videoTexture = new THREE.Texture( videoImage );
-videoTexture.generateMipmaps = false;
-videoTexture.minFilter = THREE.NearestFilter;
-videoTexture.maxFilter = THREE.NearestFilter;
-videoTexture.format = THREE.RGBFormat;
+videoTexture.minFilter = THREE.LinearFilter;
+videoTexture.magFilter = THREE.LinearFilter;
 
 var mesh1 = new THREE.Mesh(geo, new THREE.MeshBasicMaterial( { map: videoTexture } ));                 // ƒƒbƒVƒ…‚ğ¶¬
 mesh1.name = "plane";                                  // ƒƒbƒVƒ…‚Ì–¼‘OiŒã‚ÅƒsƒbƒLƒ“ƒO‚Åg‚¤j
@@ -162,8 +162,8 @@ window.addEventListener("mousedown", function(ret) {
 // ƒ^ƒbƒ`‚³‚ê‚½‘ÎÛ‚É‰‚¶‚½ˆ—
 function touch(objName) {
   switch(objName) {
-    case "cube":                                      // cube‚È‚ç
-      tween1();                                       // cube‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğÀs
+    case "plane":                                      // plane‚È‚ç
+      tween1();                                       // plane‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğÀs
       break;
     default:
       break;
