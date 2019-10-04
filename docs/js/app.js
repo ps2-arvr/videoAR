@@ -85,8 +85,8 @@ video.setAttribute( 'muted', 'muted' );
 video.play();
 
 var videoImage = document.createElement('canvas');
-videoImage.width = 720;
-videoImage.height = 560;
+videoImage.width = 1280;
+videoImage.height = 720;
 
 var videoImageContext = videoImage.getContext('2d');
 videoImageContext.fillStyle = '#000000';
