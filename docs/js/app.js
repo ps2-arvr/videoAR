@@ -85,8 +85,8 @@ video.setAttribute( 'muted', 'muted' );
 video.play();
 
 var videoImage = document.createElement('canvas');
-videoImage.width = 1280;
-videoImage.height = 720;
+videoImage.width = 720;
+videoImage.height = 560;
 
 var videoImageContext = videoImage.getContext('2d');
 videoImageContext.fillStyle = '#000000';
@@ -99,7 +99,7 @@ videoTexture.magFilter = THREE.LinearFilter;
 
 //生成したvideo textureをmapに指定し、overdrawをtureにしてマテリアルを生成
 var movieMaterial = new THREE.MeshBasicMaterial({map: videoTexture, overdraw: true, side:THREE.DoubleSide});
-var movieGeometry = new THREE.PlaneGeometry(10,10);
+var movieGeometry = new THREE.BoxGeometry(1,0.05,1);
 var movieScreen = new THREE.Mesh(movieGeometry, movieMaterial);
 
 movieScreen.name = "plane";                                  // メッシュの名前（後でピッキングで使う）
